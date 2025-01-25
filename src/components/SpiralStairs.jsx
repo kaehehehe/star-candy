@@ -1,9 +1,7 @@
 import React from "react";
-import { useGLTF } from "@react-three/drei";
+import { Candy } from "./Candy";
 
 export function SpiralStairs() {
-  const { scene } = useGLTF("star-candy.glb");
-
   const candies = [];
   const candyCount = 100;
   const radius = 16;
@@ -17,12 +15,10 @@ export function SpiralStairs() {
     const positionY = (i - candyCount / 2) * heightIncrement;
 
     candies.push(
-      <primitive
+      <Candy
         key={`stairs-${i}`}
-        position={[positionX, positionY, positionZ]}
-        object={scene.clone()}
-        scale={[4, 4, 4]}
-        rotation={[0, angle, 0]}
+        position={[positionX, positionY, positionZ]} // 올바른 [x, y, z] 값
+        angle={angle}
       />
     );
   }
