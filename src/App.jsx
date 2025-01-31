@@ -1,24 +1,29 @@
 import React from "react";
 import { Canvas } from "@react-three/fiber";
 import { Environment, OrbitControls } from "@react-three/drei";
-import { Color } from "three";
-import { SpiralStairs } from "./components/SpiralStairs";
+import { Candy } from "./components/Candy";
 import "./styles.css";
 
 export default function App() {
-  const boxCount = 100;
-  const heightIncrement = 10;
-  const centerOffset = (boxCount / 2) * heightIncrement;
-
   return (
-    <>
-      <Canvas camera={{ position: [centerOffset, 0, 40], fov: 75 }}>
-        <color attach="background" args={[new Color("#000329")]} />
-        <ambientLight intensity={1} />
-        <Environment preset="sunset" />
-        <SpiralStairs />
-        <OrbitControls minDistance={10} maxDistance={50} />
-      </Canvas>
-    </>
+    <Canvas camera={{ position: [400, 500, 1200], fov: 60 }}>
+      rotation={[0, Math.PI, 0]}
+      <OrbitControls
+        enableDamping
+        dampingFactor={0.05}
+        minDistance={100}
+        maxDistance={500}
+        maxPolarAngle={Math.PI / 2}
+      />
+      {Array.from({ length: 500 }).map((_, index) => {
+        const position = [
+          Math.random() * 1600 - 800,
+          0,
+          Math.random() * 1600 - 800,
+        ];
+        return <Candy key={index} position={position} />;
+      })}
+      <Environment preset="warehouse" />
+    </Canvas>
   );
 }
